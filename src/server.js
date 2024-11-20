@@ -32,6 +32,11 @@ app.get('/student3', function (req, res) {
   res.render('student3')
 })
 
+app.get('/comments3', function (req, res) {
+  console.log('GET called')
+  res.render('comments3/comments.pug')
+})
+
 // Start the web server
 app.listen(3000, function () {
   console.log('Listening on port 3000...')
