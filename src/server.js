@@ -93,6 +93,12 @@ app.get('/student3', function (req, res) {
   res.render('student3')
 })
 
+app.get('/comments3', function (req, res) {
+  console.log('GET called')
+  res.render('comments3/comments.pug')
+})
+
+// Start the web server
 /**
  * Comments page route handler
  * Displays all comments in descending order by timestamp

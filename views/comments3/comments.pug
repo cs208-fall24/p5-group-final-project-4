@@ -1,0 +1,33 @@
+doctype html
+link(rel='stylesheet' href='css/student3.css')
+
+head
+    title Comments
+body
+    h1 Comments
+        p Write, update, or delete previous comments!
+    form(action = '/write3', method = 'post')
+        label(for = "write3") WRITE: 
+        input(type = "text", name="write3")
+        br
+        br
+        input(type = "submit", value = "Add")
+        br
+        br
+    form(action = '/update3', method = 'post')
+        label(for = "update3") UPDATE: 
+        input(type = "text", name = "from3")
+        p to 
+        input(type = "text", name = "to3")
+        br
+        br
+        input(type = "submit", value = "Update")
+        br
+        br
+    form(action = '/delete3', method = 'post')
+        label(for = "delete3") DELETE: 
+        input(type = "text", name="delete3")
+        br
+        br
+        input(type = "submit", value = "Delete")
+    hr
