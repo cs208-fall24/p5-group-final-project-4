@@ -1,7 +1,7 @@
 # Retrospective
 
-- name: Jane Doe
-- email: janedoe@u.boisestate.edu
+- name: Nate Weddle
+- email: nathanweddle@u.boisestate.edu
 
 ## Experience
 

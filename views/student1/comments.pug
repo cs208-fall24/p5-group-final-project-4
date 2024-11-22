@@ -1,0 +1,71 @@
+//- comments.pug - Comments page template for Egyptology website
+//- Author: Hector Mendez-Garcia
+//- Requires: student1.css
+
+doctype html
+html(lang='en')
+  //- Header section
+  head
+    title Egyptology Comments - Hector Mendez-Garcia
+    link(rel='stylesheet' href='css/student1.css')
+  
+  body
+    h1 Hector Mendez-Garcia
+    
+    //- New comment form section
+    section
+      h2 Add New Comment
+      form(action='/api/comments' method='POST')
+        div.form-group
+          label(for='author') Your Name:
+          input#author(type='text' name='author' required)
+        
+        div.form-group
+          label(for='content') Your Comment:
+          textarea#content(name='content' required)
+        
+        button(type='submit') Add Comment
+
+    //- Comments display section
+    section
+      h2 All Comments
+      if comments && comments.length
+        ul.comments-list
+          each comment in comments
+            li.comment-item
+              p.comment-author= comment.author
+              p.comment-content= comment.content
+              div.comment-actions
+                //- Edit form (hidden by default)
+                form.edit-form(action=`/api/comments/${comment.id}/edit` method='POST' style='display: none;')
+                  input(type='text' name='author' value=comment.author)
+                  textarea(name='content')= comment.content
+                  button(type='submit') Save
+                  button(type='button' onclick='cancelEdit(this)') Cancel
+                div.button-group
+                  button(type='button' onclick='showEditForm(this)') Edit
+                  form.delete-form(action=`/api/comments/${comment.id}/delete` method='POST' style='display: inline;')
+                    button(type='submit') Delete
+      else
+        p No comments yet!
+    
+    //- Navigation
+    a.home-link(href='/student1') Back to Homepage
+
+    //- Client-side JavaScript for comment editing
+    script.
+      function showEditForm(button) {
+        const commentItem = button.closest('.comment-item');
+        const editForm = commentItem.querySelector('.edit-form');
+        const buttonGroup = commentItem.querySelector('.button-group');
+        editForm.style.display = 'block';
+        buttonGroup.style.display = 'none';
+      }
+
+      function cancelEdit(button) {
+        const commentItem = button.closest('.comment-item');
+        const editForm = commentItem.querySelector('.edit-form');
+        const buttonGroup = commentItem.querySelector('.button-group');
+        editForm.style.display = 'none';
+        buttonGroup.style.display = 'block';
+      }
