@@ -1,36 +1,18 @@
-/**
- * @author: Hector Mendez-Garcia
- * @date: 11/22/2024
- * @description: Comments page template for Egyptology website
- * @template: comments.pug
- * @requires: student1.css
- */
+//- comments.pug - Comments page template for Egyptology website
+//- Author: Hector Mendez-Garcia
+//- Requires: student1.css
 
-//- Basic HTML structure
 doctype html
 html(lang='en')
-  /**
-   * @section Head
-   * @contains Title and stylesheet link
-   */
+  //- Header section
   head
     title Egyptology Comments - Hector Mendez-Garcia
     link(rel='stylesheet' href='css/student1.css')
   
-  /**
-   * @section Body
-   * @contains Main content and comment functionality
-   */
   body
-    //- Page header
     h1 Hector Mendez-Garcia
     
-    /**
-     * @section Comment Form
-     * @description Form for adding new comments
-     * @endpoint /api/comments
-     * @method POST
-     */
+    //- New comment form section
     section
       h2 Add New Comment
       form(action='/api/comments' method='POST')
@@ -44,24 +26,15 @@ html(lang='en')
         
         button(type='submit') Add Comment
 
-    /**
-     * @section Comments Display
-     * @description Displays all existing comments with edit/delete functionality
-     * @requires comments array from server
-     */
+    //- Comments display section
     section
       h2 All Comments
-      //- Conditional rendering based on comments existence
       if comments && comments.length
         ul.comments-list
           each comment in comments
             li.comment-item
               p.comment-author= comment.author
               p.comment-content= comment.content
-              /**
-               * @subsection Comment Actions
-               * @description Edit and delete forms for comment management
-               */
               div.comment-actions
                 //- Edit form (hidden by default)
                 form.edit-form(action=`/api/comments/${comment.id}/edit` method='POST' style='display: none;')
@@ -69,7 +42,6 @@ html(lang='en')
                   textarea(name='content')= comment.content
                   button(type='submit') Save
                   button(type='button' onclick='cancelEdit(this)') Cancel
-                //- Action buttons
                 div.button-group
                   button(type='button' onclick='showEditForm(this)') Edit
                   form.delete-form(action=`/api/comments/${comment.id}/delete` method='POST' style='display: inline;')
@@ -77,18 +49,11 @@ html(lang='en')
       else
         p No comments yet!
     
-    //- Navigation link
+    //- Navigation
     a.home-link(href='/student1') Back to Homepage
 
-    /**
-     * @section Inline JavaScript
-     * @description Client-side functions for comment editing UI
-     */
+    //- Client-side JavaScript for comment editing
     script.
-      /**
-       * Shows the edit form for a comment
-       * @param {HTMLButtonElement} button - The clicked edit button
-       */
       function showEditForm(button) {
         const commentItem = button.closest('.comment-item');
         const editForm = commentItem.querySelector('.edit-form');
@@ -97,10 +62,6 @@ html(lang='en')
         buttonGroup.style.display = 'none';
       }
 
-      /**
-       * Hides the edit form and shows action buttons
-       * @param {HTMLButtonElement} button - The clicked cancel button
-       */
       function cancelEdit(button) {
         const commentItem = button.closest('.comment-item');
         const editForm = commentItem.querySelector('.edit-form');
