@@ -1,9 +1,22 @@
-// Create a simple in-memory store for comments
+/**
+ * @author: Hector Mendez-Garcia
+ * @date: 11/22/2024 3:43 PM
+ * @description: Handles comment functionality for the Egyptology program website
+ * 
+ * @version 1.0
+ */
+
+/** Array to store all comments */
 let comments = [];
+
+/** Counter for generating unique comment IDs */
 let nextId = 1;
 
-
-// Function to add a new comment
+/**
+ * Adds a new comment to the comments array
+ * @param {Event} event - The form submission event
+ * @listens submit
+ */
 function addComment(event) {
     event.preventDefault();
     
@@ -25,13 +38,19 @@ function addComment(event) {
     contentInput.value = '';
 }
 
-// Function to delete a comment
+/**
+ * Deletes a comment from the comments array
+ * @param {number} id - ID of the comment to delete
+ */
 function deleteComment(id) {
     comments = comments.filter(comment => comment.id !== id);
     updateCommentsList();
 }
 
-// Function to show edit modal
+/**
+ * Displays the edit modal for a specific comment
+ * @param {number} id - ID of the comment to edit
+ */
 function editComment(id) {
     const comment = comments.find(c => c.id === id);
     if (!comment) return;
@@ -48,7 +67,11 @@ function editComment(id) {
     modal.style.display = 'block';
 }
 
-// Function to save edited comment
+/**
+ * Saves changes to an edited comment
+ * @param {Event} event - The form submission event
+ * @listens submit
+ */
 function saveEditedComment(event) {
     event.preventDefault();
     
@@ -69,13 +92,18 @@ function saveEditedComment(event) {
     updateCommentsList();
 }
 
-// Function to close modal
+/**
+ * Closes the edit modal
+ */
 function closeModal() {
     const modal = document.getElementById('edit-modal');
     modal.style.display = 'none';
 }
 
-// Function to update comments list in the DOM
+/**
+ * Updates the comments display in the DOM
+ * Handles both the main comments list and random comments on index page
+ */
 function updateCommentsList() {
     const commentsList = document.getElementById('comments-list');
     
@@ -112,7 +140,10 @@ function updateCommentsList() {
     }
 }
 
-// Event Listeners
+/**
+ * Initializes the page interactivity once the DOM is fully loaded
+ * @listens DOMContentLoaded
+ */
 document.addEventListener('DOMContentLoaded', () => {
     const commentForm = document.getElementById('comment-form');
     const editForm = document.getElementById('edit-form');
@@ -133,5 +164,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial render
     updateCommentsList();
 });
-
 

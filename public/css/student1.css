@@ -1,4 +1,17 @@
-body {
+/**
+ * @author: Hector Mendez-Garcia
+ * @date: 11/22/2024 3:43 PM
+ * @description: This CSS file defines the styling for the Egyptology program website.
+ * 
+ * @version 1.0
+ */
+
+/**
+ * Main container styling for the entire page content
+ * @styles Sets base typography and layout
+ * @background Light sandy color for Egyptian theme
+ */
+ body {
     background-color: #f5e6d3;
     font-family: 'Palatino', serif;
     max-width: 1200px;
@@ -7,6 +20,11 @@ body {
     color: #2c1810;
 }
 
+/**
+ * Main heading styling for page title
+ * @styles Centers text with bottom border
+ * @effects Creates visual emphasis for main title
+ */
 h1 {
     color: #8b4513;
     text-align: center;
@@ -15,15 +33,28 @@ h1 {
     padding-bottom: 10px;
 }
 
+/**
+ * Secondary heading for section titles
+ * @styles Uses darker brown for hierarchy
+ */
 h2 {
     color: #5c3317;
     margin-top: 30px;
 }
 
+/**
+ * Tertiary heading for subsections
+ * @styles Medium brown for visual hierarchy
+ */
 h3 {
     color: #6b4423;
 }
 
+/**
+ * Content section container styling
+ * @styles Semi-transparent background with shadow
+ * @effects Creates depth and separation between sections
+ */
 section {
     background-color: rgba(255, 255, 255, 0.7);
     padding: 20px;
@@ -32,29 +63,116 @@ section {
     box-shadow: 0 2px 4px rgba(139, 69, 19, 0.1);
 }
 
-.site-image {
-    max-width: 100%;
-    height: auto;
-    margin: 20px 0;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+/**
+ * Image gallery container for photo display
+ * @styles Flex layout for responsive design
+ * @layout Centers content with consistent spacing
+ */
+.image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    margin: 30px auto;
+    max-width: 1200px;
+    padding: 0 20px;
 }
 
+/**
+ * Individual image wrapper
+ * @styles Fixed width container with centered content
+ */
+.image-container {
+    width: 400px;
+    text-align: center;
+}
+
+/**
+ * Image element styling
+ * @styles Fixed dimensions with hover effects
+ * @animation Lifts on hover with shadow
+ */
+.site-image {
+    width: 350px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 10px;
+}
+
+/**
+ * Image hover state effects
+ * @effects Lifts image and enhances shadow
+ */
+.site-image:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+/**
+ * Image caption styling
+ * @styles Smaller text with themed color
+ */
+.image-description {
+    font-size: 0.9rem;
+    color: #5c3317;
+    margin-top: 8px;
+    line-height: 1.4;
+    padding: 0 10px;
+}
+
+/**
+ * Comment box container
+ * @styles White background with subtle shadow
+ */
+.comment-item {
+    background-color: white;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/**
+ * Comment author name styling
+ * @styles Bold text with themed color
+ */
+.comment-author {
+    font-weight: bold;
+    color: #8b4513;
+    margin-bottom: 0.5rem;
+}
+
+/**
+ * Comment text styling
+ * @styles Dark brown text for readability
+ */
+.comment-content {
+    color: #2c1810;
+}
+
+/**
+ * Interactive comment link button
+ * @styles Button appearance with hover effect
+ * @animation Color transition on hover
+ */
 .comment-link {
     display: inline-block;
+    padding: 0.5rem 1rem;
     background-color: #8b4513;
     color: white;
-    padding: 10px 20px;
     text-decoration: none;
     border-radius: 4px;
-    margin-top: 20px;
+    margin-top: 1rem;
     transition: background-color 0.3s ease;
 }
 
-.comment-link:hover {
-    background-color: #5c3317;
-}
-
+/**
+ * List element styling
+ * @styles Custom arrow bullets
+ */
 ul {
     list-style-type: none;
     padding-left: 20px;
@@ -72,38 +190,27 @@ ul li:before {
     color: #8b4513;
 }
 
-.comment-item {
-    background-color: white;
-    padding: 1rem;
-    margin: 1rem 0;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+/**
+ * Mobile responsive layout adjustments
+ * @media Maximum width of 800px
+ * @adjusts Image and container sizes for smaller screens
+ */
+@media (max-width: 800px) {
+    .image-container {
+        width: 100%;
+        max-width: 350px;
+    }
+    
+    .site-image {
+        width: 100%;
+        height: 200px;
+    }
 }
 
-.comment-author {
-    font-weight: bold;
-    color: #8b4513;
-    margin-bottom: 0.5rem;
-}
-
-.comment-content {
-    color: #2c1810;
-}
-
-.comment-link {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    background-color: #8b4513;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    margin-top: 1rem;
-}
-
-.comment-link:hover {
-    background-color: #5c3317;
-}
-
+/**
+ * Comments section spacing
+ * @styles Top margin for section separation
+ */
 #comments-section {
     margin-top: 2rem;
 }
