@@ -41,8 +41,13 @@ html(lang='en')
     img.site-image(src='/images/pyramid.jpg' alt='Great Pyramid of Giza at sunset')
     img.site-image(src='/images/artifacts.jpg' alt='Students examining ancient Egyptian artifacts')
     
-    h2 Recent Comments
-    ul#comments-list
-      // Comments will be dynamically loaded here
+    section#comments-section
+      h2 Most Recent Comment
+      if comment
+        div.comment-item
+          p.comment-author= comment.author
+          p.comment-content= comment.content
+      else
+        p No comments yet!
     
     a.comment-link(href='/comments') View and Manage Comments
