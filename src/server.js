@@ -45,27 +45,20 @@ app.use(express.json())
 
 /**
  * Home page route handler
- * Renders the index page with the most recent comment
+ * Renders the main index page
  * @route GET /
  */
 app.get('/', function (req, res) {
-  console.log('GET called')
-  db.get('SELECT * FROM comments ORDER BY timestamp DESC LIMIT 1', [], (err, comment) => {
-    if (err) {
-      console.error(err)
-      comment = null
-    }
-    res.render('student1/index', { comment })
-  })
+  console.log('GET called - Main Index')
+  res.render('index')  // Just render index.pug, don't query comments
 })
 
 /**
  * Student 1's page route handler
- * Renders the index page with the most recent comment
  * @route GET /student1
  */
 app.get('/student1', function (req, res) {
-  console.log('GET called')
+  console.log('GET called - Student 1')
   db.get('SELECT * FROM comments ORDER BY timestamp DESC LIMIT 1', [], (err, comment) => {
     if (err) {
       console.error(err)
