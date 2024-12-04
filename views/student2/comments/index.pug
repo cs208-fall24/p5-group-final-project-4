@@ -1,5 +1,20 @@
 doctype html
-
+link(rel='stylesheet' href='css/student2.css')
+script(src='js/student2.js')
+head
+    title GIMM Comments
 body
-    p(style = "font-size: 72pt;") UNDER CONSTRUCTION
-    a(href = "/student2" style = "font-size: 72pt;") RETURN
+    h1 Comments
+    section
+        form(action="openUpdateWindow()")
+    section 
+        h2 All Comments
+            div(id="commentList")
+                ul
+                - for (let i = 0; i < studentTwoComments.length; i++)
+                    div(id = 'commentDiv')
+                        h2 = studentTwoComments.author
+                        form(action="/delete", method="post")
+                            input(type="hidden", name="id" value=studentTwoComments[i].id)
+                            input(type="submit", value="Delete Comment", class = "delete")
+                    

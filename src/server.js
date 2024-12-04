@@ -16,6 +16,7 @@ const sqlite3 = sql.verbose()
  * @type {sqlite3.Database}
  */
 const db = new sqlite3.Database(':memory:')
+const dbTwo = new sqlite3.Database(':memory:')
 
 /**
  * Create comments table if it doesn't exist
@@ -30,6 +31,22 @@ db.run(`CREATE TABLE IF NOT EXISTS comments (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   author TEXT,
   content TEXT,
+  timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+)`)
+
+/**
+ * Create Student Two's comments table if it doesn't exist
+ * @schema {
+ *   id: INTEGER PRIMARY KEY AUTOINCREMENT,
+ *   author: TEXT,
+ *   content: TEXT,
+ *   timestamp: DATETIME DEFAULT CURRENT_TIMESTAMP
+ * }
+ */
+dbTwo.run(`CREATE TABLE IF NOT EXISTS StudentTwoComments (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  author TEXT,
+  comment TEXT,
   timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
 )`)
 
@@ -68,20 +85,64 @@ app.get('/student1', function (req, res) {
   })
 })
 
+///////////////////////////
+//                       //
+//   Start Student Two   //
+//                       //
+///////////////////////////
+
 /**
  * Student 2's page route handler
  * @route GET /student2
  */
 app.get('/student2', function (req, res) {
-  console.log('GET called')
-  res.render('student2')
+  console.log('GET called for Student 2 - Index')
+  dbTwo.all('SELECT TOP(5) * FROM StudentTwoComments ORDER BY RANDOM() LIMIT 1', [], (error, studentTwoComments) => {
+    if (error){
+      studentTwoComments = [];
+    }
+    res.render('/student2')
+  })
 })
 
-
+/**
+ * Student 2's comment page route handler
+ * @route GET /student2/comments
+ */
 app.get('/student2/comments', function (req, res) {
-  console.log('GET called')
-  res.render('student2/comments')
+  console.log('GET called for Student 2 - Comments')
+  res.render('/student2/comments')
+  dbTwo.all('SELECT * FROM StudentTwoComments ORDER BY timestamp', [], (error, studentTwoComments) => {
+    if (error){
+      studentTwoComments = [];
+    }
+    res.render('/student2/comments')
+  })
 })
+
+/**
+ * Add new comment endpoint
+ * Accepts author and content in request body
+ * @route POST /api/comments
+ * @param {Object} req.body
+ * @param {string} req.body.author - The author's name
+ * @param {string} req.body.content - The comment
+ */
+app.post('/student2/comments', (req, res) => {
+  const { author, content } = req.body
+  db.run('INSERT INTO StudentTwoComments (author, content) VALUES (?, ?)',
+    [author, content],
+    (err) => {
+      if (err) console.error(err)
+      res.redirect('student2/comments')
+    })
+})
+
+///////////////////////////
+//                       //
+//    End Student Two    //
+//                       //
+///////////////////////////
 
 /**
  * Student 3's page route handler

@@ -8,23 +8,47 @@ body
     h2 GIMM
     section
         h2 Location
-            p Paragraph describing University's location 
+            p The GIMM program is located at Boise State University, which is in the heart of downtown Boise Idaho.
+            img(id='imgBSU' src='' alt="Boise State's logo")
     section
         h2 About
             section
                 h3 Games
-                    p Paragraph detailing the "Games" portion.
+                    p Students will learn how to program and develop games. Students will also learn how to create interactive peripheral devices that can be used for their game(s).
             section
                 h3 Interactive Media
                     p Paragraph detailing the "Interactive Media" portion.
             section
                 h3 Mobile
-                    p Paragraph detailing the "Mobile" portion.
+                    p Students will develop apps and websites designed to be used and viewed on mobile platforms. They will also learn about common strageties utilized in the mobile development industry to ensure mobile friendly content.
     section
         h2 Things to Do
             ul 
-                li Thing 1
-                li Thing 2
-                li Thing 3
+                li Game Developer
+                    ul 
+                        li Programming 
+                        li Modeling
+                        li Sound Design 
+                        li Stage Design
+                        li All other areas
+                li Media Development
+                    ul
+                        li Animation(s)
+                        li Art
+                        li Sound
+                li Software Development
+                li Game Testing
+                li Mobile Application Development
+                    ul
+                        li Games
+                        li Websites 
+                        li Other Apps
     section
-        a(href='/student2/comments') Comments
+        h2 Comments 
+        if studentTwoComments
+            div(id = 'commentSection')
+                h2(id = 'author') = studentTwoComments.author
+                div(id = 'comment') = studentTwoComments.content
+
+    form(action = '/student2/comments')
+        input(type='submit' value='Comments' id='toComments')
