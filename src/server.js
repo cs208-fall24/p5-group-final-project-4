@@ -82,12 +82,19 @@ app.get('/student1', function (req, res) {
 app.get('/student2', function (req, res) {
   console.log('GET called')
   res.render('student2')
+  db.get('SELECT * FROM commentstwo ORDER BY timestamp DESC LIMIT 1', [], (err, comment) => {
+    if (err) {
+      comment = null
+    }
+    res.render('student2/index', { studentTwo })
+  })
 })
 
 
 app.get('/student2/comments', function (req, res) {
   console.log('GET called')
   res.render('student2/comments')
+  
 })
 
 /**
