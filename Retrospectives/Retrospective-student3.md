@@ -5,12 +5,12 @@
 
 ## Experience
 
-TODO
+
 
 ## Known issues or Bugs
 
-TODO
+None
 
 ## Sources used
 
-TODO
+Along with the text book, I used w3schools.com and https://developer.mozilla.org/en-US/ for some help on css.
