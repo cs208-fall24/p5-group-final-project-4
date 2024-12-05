@@ -92,39 +92,6 @@ app.get('/student1', function (req, res) {
 })
 
 /**
- * Comments page route handler
- * Displays all comments in descending order by timestamp
- * @route GET /comments
- */
-app.get('/comments', (req, res) => {
-  db.all('SELECT * FROM comments ORDER BY timestamp DESC', [], (err, comments) => {
-    if (err) {
-      console.error(err)
-      comments = []
-    }
-    res.render('student1/comments', { comments })
-  })
-})
-
-/**
- * Add new comment endpoint
- * Accepts author and content in request body
- * @route POST /api/comments
- * @param {Object} req.body
- * @param {string} req.body.author - The author's name
- * @param {string} req.body.content - The comment content
- */
-app.post('/api/comments', (req, res) => {
-  const { author, content } = req.body
-  db.run('INSERT INTO comments (author, content) VALUES (?, ?)',
-    [author, content],
-    (err) => {
-      if (err) console.error(err)
-      res.redirect('/comments')
-    })
-})
-
-/**
  * Student 2's page route handler
  * @route GET /student2
  */
@@ -162,6 +129,39 @@ app.get('/comments3', (req, res) => {
     }
     res.render('student3/comments', { comments })
   })
+})
+
+/**
+ * Comments page route handler
+ * Displays all comments in descending order by timestamp
+ * @route GET /comments
+ */
+app.get('/comments', (req, res) => {
+  db.all('SELECT * FROM comments ORDER BY timestamp DESC', [], (err, comments) => {
+    if (err) {
+      console.error(err)
+      comments = []
+    }
+    res.render('student1/comments', { comments })
+  })
+})
+
+/**
+ * Add new comment endpoint
+ * Accepts author and content in request body
+ * @route POST /api/comments
+ * @param {Object} req.body
+ * @param {string} req.body.author - The author's name
+ * @param {string} req.body.content - The comment content
+ */
+app.post('/api/comments', (req, res) => {
+  const { author, content } = req.body
+  db.run('INSERT INTO comments (author, content) VALUES (?, ?)',
+    [author, content],
+    (err) => {
+      if (err) console.error(err)
+      res.redirect('/comments')
+    })
 })
 
 /**
