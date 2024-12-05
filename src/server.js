@@ -34,6 +34,22 @@ db.run(`CREATE TABLE IF NOT EXISTS comments (
 )`)
 
 /**
+ * Create comments table if it doesn't exist
+ * @schema {
+ *   id: INTEGER PRIMARY KEY AUTOINCREMENT,
+ *   author: TEXT,
+ *   content: TEXT,
+ *   timestamp: DATETIME DEFAULT CURRENT_TIMESTAMP
+ * }
+ */
+db.run(`CREATE TABLE IF NOT EXISTS comments3 (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  author TEXT,
+  content TEXT,
+  timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+)`)
+
+/**
  * Initialize Express application and middleware
  */
 const app = express()
@@ -50,7 +66,7 @@ app.use(express.json())
  */
 app.get('/', function (req, res) {
   console.log('GET called - Main Index')
-  res.render('index')  // Just render index.pug, don't query comments
+  res.render('index') 
 })
 
 /**
@@ -89,15 +105,31 @@ app.get('/student2/comments', function (req, res) {
  */
 app.get('/student3', function (req, res) {
   console.log('GET called')
-  res.render('student3')
+  db.all('SELECT * FROM comments3 ORDER BY timestamp DESC', [], (err, comments) => {
+    if (err) {
+      console.error(err)
+      comments = []
+    }
+    res.render('student3/index', { comments })
+  })
 })
 
-app.get('/comments3', function (req, res) {
+/**
+ * Comments page route handler
+ * Displays all comments in descending order by timestamp
+ * @route GET /comments
+ */
+app.get('/comments3', (req, res) => {
   console.log('GET called')
-  res.render('comments3/comments.pug')
+  db.all('SELECT * FROM comments3 ORDER BY timestamp DESC', [], (err, comments) => {
+    if (err) {
+      console.error(err)
+      comments = []
+    }
+    res.render('student3/comments', { comments })
+  })
 })
 
-// Start the web server
 /**
  * Comments page route handler
  * Displays all comments in descending order by timestamp
@@ -128,6 +160,48 @@ app.post('/api/comments', (req, res) => {
     (err) => {
       if (err) console.error(err)
       res.redirect('/comments')
+    })
+})
+
+/**
+ * Add new comment endpoint
+ * Accepts author and content in request body
+ * @route POST /comments3
+ * @param {Object} req.body
+ * @param {string} req.body.author - The author's name
+ * @param {string} req.body.content - The comment content
+ */
+app.post('/api/comments3', (req, res) => {
+  const { author, content } = req.body
+  db.run('INSERT INTO comments3 (author, content) VALUES (?, ?)',
+    [author, content],
+    (err) => {
+      if (err) console.error(err)
+      res.redirect('/comments3')
+    })
+})
+
+/**
+ * Delete a comment from the database
+ */
+app.post('/api/:id/delete3', (req, res) => {
+  const id = req.params.id
+  db.run('DELETE FROM comments3 WHERE id = ?',
+    [id],
+    (err) => {
+      if (err) console.error(err)
+      res.redirect('/comments3')
+    })
+})
+
+app.post('/api/:id/edit3', (req, res) => {
+  const id = req.params.id
+  const { editauthor, editcontent } = req.body
+  db.run('UPDATE comments3 SET author = ?, content = ? WHERE id = ?',
+    [editauthor, editcontent, id],
+    (err) => {
+      if (err) console.error(err)
+      res.redirect('/comments3')
     })
 })
 
