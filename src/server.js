@@ -43,7 +43,7 @@ db.run(`CREATE TABLE IF NOT EXISTS comments (
  *   timestamp: DATETIME DEFAULT CURRENT_TIMESTAMP
  * }
  */
-dbTwo.run(`CREATE TABLE IF NOT EXISTS StudentTwoComments (
+dbTwo.run(`CREATE TABLE IF NOT EXISTS S2Comments (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   author TEXT,
   comment TEXT,
@@ -59,6 +59,7 @@ app.set('views', 'views')
 app.set('view engine', 'pug')
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
+
 
 /**
  * Home page route handler
@@ -97,11 +98,12 @@ app.get('/student1', function (req, res) {
  */
 app.get('/student2', function (req, res) {
   console.log('GET called for Student 2 - Index')
-  dbTwo.all('SELECT TOP(5) * FROM StudentTwoComments ORDER BY RANDOM() LIMIT 1', [], (error, studentTwoComments) => {
-    if (error){
-      studentTwoComments = [];
+  dbTwo.all('SELECT * FROM S2Comments ORDER BY RANDOM() LIMIT 5', [], (err, studentTwoComments) => {
+    if (err) {
+      console.error(err)
+      studentTwoComments = null
     }
-    res.render('/student2')
+    res.render('student2/index', { studentTwoComments })
   })
 })
 
@@ -111,30 +113,65 @@ app.get('/student2', function (req, res) {
  */
 app.get('/student2/comments', function (req, res) {
   console.log('GET called for Student 2 - Comments')
-  res.render('/student2/comments')
-  dbTwo.all('SELECT * FROM StudentTwoComments ORDER BY timestamp', [], (error, studentTwoComments) => {
-    if (error){
-      studentTwoComments = [];
+  dbTwo.all('SELECT * FROM S2Comments ORDER BY timestamp DESC', [], (err, studentTwoComments) => {
+    if (err) {
+      console.error(err)
+      studentTwoComments = []
     }
-    res.render('/student2/comments')
+  res.render('student2/comments/index', { studentTwoComments })
   })
 })
 
 /**
- * Add new comment endpoint
+ * Add new comment
  * Accepts author and content in request body
- * @route POST /api/comments
+ * @route POST /student2/comments
  * @param {Object} req.body
  * @param {string} req.body.author - The author's name
  * @param {string} req.body.content - The comment
  */
-app.post('/student2/comments', (req, res) => {
-  const { author, content } = req.body
-  db.run('INSERT INTO StudentTwoComments (author, content) VALUES (?, ?)',
-    [author, content],
+app.post('/student2/comments/add', (req, res) => {
+  console.log('POST called for Student 2 - Comments - Add')
+  const stmt = dbTwo.prepare('INSERT INTO S2Comments (author, comment) VALUES (?, ?)')
+    stmt.run(req.body.addName, req.body.addComment)
+    stmt.finalize()
+    res.redirect('/student2/comments')
+})
+
+/**
+ * Update Comment
+ * Accepts id and content in request body
+ * @route POST /student2/comments/update
+ * @param {Object} req.body
+ * @param {string} req.body.id - Comment's ID
+ * @param {string} req.body.content - The comment
+ */
+app.post('/student2/comments/update', (req, res) => {
+  console.log('POST called for Student 2 - Comments - Update')
+  const stmt = dbTwo.prepare('UPDATE S2Comments SET author = (?) WHERE id = (?)')
+  const stmt2 = dbTwo.prepare('UPDATE S2Comments SET comment = (?) WHERE id = (?)')
+    stmt.run(req.body.updateName, req.body.updateID)
+    stmt2.run(req.body.updateComment, req.body.updateID)
+    stmt.finalize()
+    stmt2.finalize()
+    res.redirect('/student2/comments')
+})
+
+/**
+ * Delete Comment
+ * Accepts id and content in request body
+ * @route POST /student2/comments/update
+ * @param {Object} req.body
+ * @param {string} req.body.id - Comment's ID
+ * @param {string} req.body.content - The comment
+ */
+app.post('/student2/comments/delete', (req, res) => {
+  const { id } = req.body
+  dbTwo.run('DELETE FROM S2Comments WHERE id = (?)',
+    [id],
     (err) => {
       if (err) console.error(err)
-      res.redirect('student2/comments')
+      res.redirect('/student2/comments')
     })
 })
 

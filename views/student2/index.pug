@@ -1,54 +1,72 @@
 doctype html
 link(rel='stylesheet' href='css/student2.css')
+script(type='text/javascript' src='js/student2.js')
 
 head
     title (GIMM) Games, Interactive Media, and Mobile (Bachelor's)
-body
-    h1 Cody Swinnerton
-    h2 GIMM
-    section
-        h2 Location
-            p The GIMM program is located at Boise State University, which is in the heart of downtown Boise Idaho.
-            img(id='imgBSU' src='' alt="Boise State's logo")
-    section
-        h2 About
-            section
+body(id='indexBody')
+    div(id="navigationPane")
+            form(class='navigationButtons' action = '/')
+                input(class='navigationButton' type='submit' value='Home Page')
+            form(class='navigationButtons' action = '/student1')
+                input(class='navigationButton' type='submit' value='Student 1')
+            form(class='navigationButtons' action = '/student2')
+                input(class='navigationButton' type='submit' value='Student 2')
+            form(class='navigationButtons' action = '/student3')
+                input(class='navigationButton' type='submit' value='Student 3')
+    div(id='indexActualBody')
+        h1 Cody Swinnerton
+        h2(class='GIMM') GIMM
+        section(class = 'indexSection')
+            h2 Location
+                p(class = 'subsectionOne') The GIMM program is located at Boise State University, which is in the heart of downtown Boise Idaho.
+                img(id='imgBSU' src='/img/bsuLogo.jpg' alt="Boise State's logo")
+        section(class = 'indexSection')
+            h2 About
+            section(class = 'subsectionOne')
                 h3 Games
-                    p Students will learn how to program and develop games. Students will also learn how to create interactive peripheral devices that can be used for their game(s).
-            section
+                    p(class = 'subsectionTwo') Students will learn how to program and develop games. Students will also learn how to create interactive peripheral devices that can be used for their game(s).
+            section(class = 'subsectionOne')
                 h3 Interactive Media
-                    p Paragraph detailing the "Interactive Media" portion.
-            section
+                    p(class = 'subsectionTwo') Students will learn how to utilize industry leading programs to create media that can be viewed from a variety of places.
+            section(class = 'subsectionOne')
                 h3 Mobile
-                    p Students will develop apps and websites designed to be used and viewed on mobile platforms. They will also learn about common strageties utilized in the mobile development industry to ensure mobile friendly content.
-    section
-        h2 Things to Do
-            ul 
-                li Game Developer
-                    ul 
-                        li Programming 
-                        li Modeling
-                        li Sound Design 
-                        li Stage Design
-                        li All other areas
-                li Media Development
-                    ul
-                        li Animation(s)
-                        li Art
-                        li Sound
-                li Software Development
-                li Game Testing
-                li Mobile Application Development
-                    ul
-                        li Games
-                        li Websites 
-                        li Other Apps
-    section
-        h2 Comments 
-        if studentTwoComments
-            div(id = 'commentSection')
-                h2(id = 'author') = studentTwoComments.author
-                div(id = 'comment') = studentTwoComments.content
-
-    form(action = '/student2/comments')
-        input(type='submit' value='Comments' id='toComments')
+                    p(class = 'subsectionTwo') Students will develop apps and websites designed to be used and viewed on mobile platforms. They will also learn about common strageties utilized in the mobile development industry to ensure mobile friendly content.
+        section(class = 'indexSection')
+            h2 Things to Do
+                br
+                img(id='mario' src='/img/mario.jpg' alt='Mario Bros Picture')
+                ul
+                    li(class = 'subsectionOne') Game Developer
+                        ul 
+                            li(class = 'subsectionTwo') Programming 
+                            li(class = 'subsectionTwo') Modeling
+                            li(class = 'subsectionTwo') Sound Design 
+                            li(class = 'subsectionTwo') Stage Design
+                            li(class = 'subsectionTwo') All other areas
+                    li(class = 'subsectionOne') Media Development
+                        ul
+                            li(class = 'subsectionTwo') Animation(s)
+                            li(class = 'subsectionTwo') Art
+                            li(class = 'subsectionTwo') Sound
+                    li(class = 'subsectionOne') Software Development
+                    li(class = 'subsectionOne') Game Testing
+                    li(class = 'subsectionOne') Mobile Application Development
+                        ul
+                            li(class = 'subsectionTwo') Games
+                            li(class = 'subsectionTwo') Websites 
+                            li(class = 'subsectionTwo') Other Apps
+        section
+            h2(id='commentsHeader') Comments
+            form(class = 'toCommentsButton' action='/student2/comments')
+                input(type='submit' value='To All Comments' id='toComments' class = 'commentButtons')
+            if (studentTwoComments.length > 0)
+                div(id = 'commentSection' class = 'commentSectionDiv')
+                    - for (let i = 0; i < studentTwoComments.length; i++)
+                            div(class = 'commentSectionDiv')
+                                h2= studentTwoComments[i].author
+                                    ul
+                                        li(class = 'commentDiv')= studentTwoComments[i].comment
+            else
+                div(class = 'commentSectionDiv')
+                    div(class = 'commentDiv') No Comments Yet!

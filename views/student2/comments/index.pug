@@ -1,20 +1,77 @@
 doctype html
-link(rel='stylesheet' href='css/student2.css')
-script(src='js/student2.js')
+link(rel='stylesheet' href='../css/student2.css')
+script(type='text/javascript' src='../js/student2.js')
+
 head
     title GIMM Comments
-body
-    h1 Comments
-    section
-        form(action="openUpdateWindow()")
-    section 
-        h2 All Comments
-            div(id="commentList")
-                ul
-                - for (let i = 0; i < studentTwoComments.length; i++)
-                    div(id = 'commentDiv')
-                        h2 = studentTwoComments.author
-                        form(action="/delete", method="post")
-                            input(type="hidden", name="id" value=studentTwoComments[i].id)
-                            input(type="submit", value="Delete Comment", class = "delete")
-                    
+body(id = 'commentsBody' onload='init(document.body)')
+    div(id="navigationPane")
+        form(class='navigationButtons' action = '/')
+            input(class='navigationButton' type='submit' value='Home Page')
+        form(class='navigationButtons' action = '/student1')
+            input(class='navigationButton' type='submit' value='Student 1')
+        form(class='navigationButtons' action = '/student2')
+            input(class='navigationButton' type='submit' value='Student 2')
+        form(class='navigationButtons' action = '/student3')
+            input(class='navigationButton' type='submit' value='Student 3')
+    
+    div(id='addContainer' class='container')
+        div(id='addPopup' class = 'popup')
+            div(id = 'apHandle' class='pHandle')
+                div(class='phText') Add a Comment
+                img(class= 'phClose' src='../img/Close.png' onclick='closePopup("add", "cancel")')
+            form(id = 'addForm' class='pBody' action = '/student2/comments/add' method='POST')
+                div(class='pFields')
+                    label(for='addName') Enter your name
+                    br
+                    input(id='addName' name='addName' type='text' class = 'pTFields')
+                    br
+                    label(for='addComment') Enter Comment
+                    br
+                    textarea(id='addComment' name='addComment' class = 'pTFields')
+                div(class='pBodyBut')
+                    input(class = 'pbButtons' type='submit' value='Submit')
+
+    div(id='updateContainer' class='container')
+        div(id='updatePopup' class = 'popup')
+            div(id = 'upHandle' class='pHandle')
+                div(class='phText') Update Comment
+                img(class= 'phClose' src='../img/Close.png' onclick='closePopup("update", "cancel")')
+            form(id = 'updateForm' class='pBody' action = '/student2/comments/update' method='POST')
+                div(class='pFields')
+                    label(for='updateName') Name
+                    br
+                    input(id='updateName' name='updateName' type='text' class = 'pTFields' value = '')
+                    br
+                    label(for='updateComment') Comment
+                    br
+                    textarea(id='updateComment' name='updateComment' type='text' class = 'pTFields' value = '')
+                div(class='pBodyBut')
+                    input(class = 'pbButtons' type='submit' value='Submit')
+                    input(type="hidden" id='updateID' name="updateID" value=0)
+
+    div(id='actualBody')
+        div(class = 'top')
+            h1 Comments
+            section
+                input(class = 'commentButtons' type = 'button' value = 'Add New Comment' onClick="openPopup('add', this)")
+        div(class = 'bottom')
+            section 
+                h2(id = 'allComments') All Comments
+                    div(id="commentList")
+                        if (studentTwoComments.length < 1)
+                            div(class = 'commentSectionDiv') No Comments Yet!
+                        else 
+                            - for (let i = 0; i < studentTwoComments.length; i++)
+                                div(class = 'commentSectionDiv')
+                                    h2= studentTwoComments[i].author
+                                    ul
+                                        li(class = 'commentDiv')= studentTwoComments[i].comment
+                                    div(class = 'commentBut')
+                                        form(class = 'commentButtons')
+                                            input(type="hidden", name="id" value=studentTwoComments[i].id)
+                                            input(type="button", value="Update Comment" onClick='openPopup("update", this)')
+                                        form(class = 'commentButtons' action="/student2/comments/delete" method="post")
+                                            input(type="hidden", name="id" value=studentTwoComments[i].id)
+                                        input(type="submit", value="Delete Comment")
+                        

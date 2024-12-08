@@ -1,3 +1,224 @@
-body{
-    background-color: orange;
+@keyframes pOpen{
+	from {opacity: 0;}
+	to {opacity:1;}
+}
+
+@keyframes pClose{
+	from {opacity: 1;}
+	to {opacity: 0;}
+}
+
+@keyframes bFadeOut{
+	from {background-color: rgb(255, 255, 255, 1);}
+	to {background-color: rgb(0, 0, 0, .5);}
+}
+
+@keyframes bFadeIn{
+	from {background-color: rgb(0, 0, 0, .5);}
+	to {background-color: rgb(255, 255, 255, 1);}
+}
+
+@keyframes cFadeIn{
+	from {background-color: rgb(255, 255, 255, 0);}
+	to {background-color: rgb(0, 0, 0, .8);}
+}
+
+@keyframes cFadeOut {
+	from {background-color: rgb(0, 0, 0, .8);}
+	to {background-color: rgb(255, 255, 255, 0);}
+}
+
+h1{
+	text-align: center;
+}
+
+.GIMM{
+	text-align: center;
+}
+
+#imgBSU{
+	height: 150px;
+	width: 195px;
+}
+
+#mario{
+	width: 750px;
+	height: 422px;
+}
+
+.indexSection{
+	background: white;
+	color: black;
+    border-radius: 11px;
+}
+
+.subsectionOne{
+	text-indent: 10px;
+	font-size: 18pt;
+}
+
+.subsectionTwo{
+	text-indent: 20px;
+	font-size: 16pt;
+}
+
+#commentsHeader{
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+
+.commentButtons{
+	font-size: 18px;
+	font-weight: bold;
+	height: 100%;
+	text-align: center;
+}
+
+#indexBody{
+    margin:0;
+    padding: 0;
+	font-weight: bold;
+	font-size: 24pt;
+	font-family: 'Comic Sans MS';
+	background-color: black;
+	color: white;
+}
+
+#navigationPane {
+    background: linear-gradient(to right, rgb(255, 137, 0), rgb(0, 85, 199));
+    width: 100vw;
+	height: 44px;
+    position: fixed;
+    top: 0;
+	vertical-align: top;
+}
+
+.navigationButtons {
+    display: inline-block;
+    margin-right: 5px;
+	vertical-align: top;
+}
+
+.navigationButton{
+	font-size: 16px;
+	font-weight: bold;
+	height: 44px;
+	width: auto;
+	vertical-align: top;
+}
+
+.indexActualBody{
+	margin: 8px;
+}
+
+#commentsBody{
+	margin:0;
+    padding: 0;
+}
+
+#actualBody {
+    margin: 8px;
+}
+
+.top{
+	font-size: 24pt;
+	text-align: center;
+}
+
+#allComments{
+	font-size: 24pt;
+	text-align: center;
+}
+
+.container{
+    visibility: hidden;
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100vw;
+	height: 100vh;
+	z-index: 2;
+	font-family: 'Comic Sans MS';
+}
+
+.popup{
+	position: absolute;
+	width: 50vw;
+	height: 40vh;
+	top: 25vh;
+	left: 25vw;
+	z-index: 3;
+	border-radius: 22px;
+	opacity: 0;
+}
+
+.pHandle{
+	position: relative;
+	cursor: move;
+	width: 100%;
+	height: 10%;
+	background: linear-gradient(to right, rgb(255, 137, 0), rgb(0, 85, 199));
+	border-radius: 25px 25px 0px 0px;
+}
+
+.phText {
+	display: inline-block;
+	position: relative;
+	left: 1%;
+	top: 25%;
+	width: auto;
+	height: 75%;
+	/*color: rgb(255, 255, 255, 1);*/
+}
+
+.phClose{
+	cursor: pointer;
+	position: relative;
+	float: right;
+	right: .5%;
+	height: 100%;
+}
+
+.pBody{
+	color: black;
+	position: relative;
+	width: 100%;
+	height:95%;
+	background-color: rgb(255, 255, 255, 1);
+	border-radius: 0px 0px 25px 25px;
+	text-align: Center;
+	border-bottom: 0;
+}
+
+.pBodyBut {
+	position: absolute;
+	height: 4.228188%;
+	width: 100%;
+	top: 95%;
+}
+
+.pbButtons {
+	height: 100%; /* Original Size: 2.818792% */
+	font-size: .834vw;
+	vertical-align: top;
+	margin: 0px 3px 0px 3px;
+}
+
+.commentSectionDiv{
+	background: linear-gradient(to right, rgb(255, 137, 0), rgb(0, 85, 199));
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.commentDiv{
+	text-align: left;
+}
+
+.commentButtons{
+	display: inline-block;
+	padding: 0px 2px;
+}
+
+.commentBut{
+	text-align: center;
 }
