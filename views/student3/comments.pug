@@ -1,0 +1,45 @@
+doctype html
+link(rel='stylesheet' href='css/student3.css')
+script(src="js/student3.js" defer)
+
+head
+    title Comments
+body
+    h1 Nate Weddle
+    h2 
+        a(href='/student3') Back to web page
+    section.comments-page
+        h2.comments-heading Add a comment!
+        form.comment-form(action = '/api/comments3', method = 'POST')
+            div.form-group 
+                label(for = 'author') Your Name: 
+                input#author(type = "text", name="author" required)
+
+            div.form-group
+                label(for = 'content') Your Comment: 
+                textarea#comment(name = 'content', rows = "1", cols = "50" required)
+            
+            input(type = "submit", value = "Add Comment")
+    hr
+
+    section.comments-page
+        h2.comments-heading All comments 
+        //If the comments array exists and has a length > 0, this displays each comment and allows the user to edit or delete each one
+        if comments && comments.length 
+            ul
+                each comment in comments
+                    li= comment.author + ' said ' + comment.content
+                    form.delete-form(action = `/api/${comment.id}/delete3`, method = 'POST')
+                        button(type = "submit", onclick=`deleteComment(${comment})`) Delete
+                    form.edit-form(action = `/api/${comment.id}/edit3`, method = 'POST')
+                        p Edit this comment =>
+                        div.edit-form-group
+                            label(for = "editauthor") Your Name:
+                            input#editauthor(type = "text", name="editauthor" required)
+
+                        div.edit-form-group
+                            label(for = "editcontent") Your Updated Comment: 
+                            textarea#editcomment(name = 'editcontent', rows = "1", cols = "50" required)
+                        button(type = 'submit', onclick=`editComment(${comment})`) Save
+        else 
+            p No comments yet!

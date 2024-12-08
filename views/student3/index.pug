@@ -1,51 +1,69 @@
 doctype html
 link(rel='stylesheet' href='css/student3.css')
+script(src="js/student3.js" defer)
 
 head
     title Harry Potterology - Nate Weddle
 body
     h1 Nate Weddle
-    h2 You will learn everything there is to know about Harry Potter
-    p A complete degree in Harry Potter history and magic (a history of magic if you will)!
-    section 
-        //Single paragraph, describe universities location (anywhere)
+    hr
+    section#first-section
+        h2 Welcome to Hogwarts!
+        p Here at Hogwarts, you'll learn how to become a fully qualified wizard!
+    section#location-section 
         h2 Location
         p Hogwarts is located in a valley area of the Scottish Highlands. Just south of the castle is the Great Lake, home to a giant squid that often makes an appearance above the surface. Also nearby 
             is the village of Hogsmeade, the only all-wizarding community in Britain.
-    section 
-        //3 subsections (each using a section tag) with h3 headings. Each paragraph describes something about the major
+    section#about-section
         h2 About
-        section 
+        section#class-section
             h3 Defense Against the Dark Arts
             p Arm yourself with the best spells to defend yourself from dark witches and wizards. Study how to defned against curses, hexex, and jinxes. Practice duelling. Protective enchantments.
                 Learn about dangerous creatures and the best ways to combat them. 
-        section 
+        section#class-section
             h3 Potions
             p Learn about the subtle science and exact art of potion making. You'll discover how to bottle fame, brew glory, and even stopper death. Use magical ingredients with specific recipes
                 to create potions.
-        section 
+        section#class-section
             h3 Transfiguration 
             p Magic focused on altering the form and/or appearance of an opject. As you get better, you'll even learn how to transfigure animals and people. 
-        section 
+        section#class-section
             h3 Herbology 
             p Grow magical plants that have a variety of different uses. These include anything from brewing potions, to curing petrification, to even offensive plants you can use against your enemies!
-        section    
+        section#class-section
             h3 Charms 
             p A more creative approach to magic, where you can learn spells that are helpful in a wide variety of ways. You'll be able to do things like levitating objects, summoning things, and making artificial light.   
-    section 
-        //Unordered list of things people can do with this major
+    section#jobs-section
         h2 Things To Do
         ul 
-            li Auror 
-            li Ministry of Magic 
-            li Shop 
-            li 
-    //At least 2 images that show just how cool Hogwarts is
-    //Display a maximum of 5 randomly selected comments from my database in a ul, should be 0 at first
-    //Must add a new Comments page that will allow people to add, delete, and update comments on the site
-    h2 Comments Page 
-    p 
-        a(href='/comments3') comments 
-    ul
-        li 
-
+            li Auror: Elite law enforcement official who combats dark wizards
+            li Dueller: Compete with the most talented wizards in the world in tournaments
+            li Professor: Come back and teach at the school!
+            li Healer: Equivalent to muggle doctors, heal the sick and injured 
+            li Ministry of Majic: Become an employee for one of the many departments of wizarding government
+            li Professional Quidditch Player
+    div.image-gallery
+        div.image-container
+            img.school-image(src='/img/Hogwarts_castle.png' alt='Hogwarts Castle')
+            p.image-description Live at Hogwarts Castle where you'll be sorted into one of four houses and take all your classes
+        div.image-container
+            img.school-image(src='/img/GreatHall.png' alt='The Great Hall')
+            p.image-description The Great Hall is where each year begins and ends, and where all four houses gather to feast
+    section#comments-section
+        h2
+            Recent Comments about the School!
+        div.index-comments
+            //If the comments array exist and has a length > 0, picks up to 5 random comments and displays them on the webpage
+            if comments && comments.length
+                - let randomComments = [...comments].sort(() => 0.5 - Math.random()).slice(0, 5)
+                ul
+                    each comment in randomComments 
+                        li= comment.author + ' said ' + comment.content
+            else 
+                p No comments yet! 
+        p 
+            a(href='/comments3') View and Manage all the comments here
+        p 
+            a(href='/') Back to Home page
+        
+        
